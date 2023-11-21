@@ -140,19 +140,24 @@ let keyframes = [
     }
 ]
 function main(){
-    var data = [66, 25]
+    var data = [66, 25, 9, 0];
+    var customLabels = [
+        'Brown: % of Black Women who changed their hair for a job interview',
+        'Orange: % of Black Women who believed they were denied a job interview because of their hair',
+        'Gray: estimated % of Black Women who have not experienced\nhair discrimination in the workplace'
+      ];
+      
     var svg = d3.select("svg"),
-    width = svg.attr('width'),
-    height = svg.attr('height'),
+    width = +svg.attr('width'),
+    height = +svg.attr('height'),
     radius = Math.min(width, height)/2
-    var g = svg.append('g').attr('transform', 'translate(' + width / 2 + ')');
-    var color = d3.scaleOrdinal(['rgba(100, 35, 35, 0.937)', 'rgba(241, 76, 0, 0.937)'])
+    var g = svg.append('g').attr('transform', 'translate(' + width / 4.5 + ',' + height / 2 + ')');
+    var color = d3.scaleOrdinal(['rgba(100, 35, 35, 0.937)', 'rgba(241, 76, 0, 0.937)', 'rgb(179, 174, 174)', 'rgb(179, 174, 174)'])
     var pie = d3.pie();
     var arc = d3.arc()
                 .innerRadius(0)
                 .outerRadius(radius);
-    //var remainingValue = 100 - data.reduce((a, b) => a + b, 0);
-    //data.push(remainingValue);
+   
             
     var arcs = g.selectAll('arc')
                .data(pie(data))
@@ -163,6 +168,17 @@ function main(){
                 return color(i) 
             })
             .attr('d', arc);
+    arcs.append('text')
+        .attr('transform', function (d) {
+            var pos = arc.centroid(d);
+            pos[0] = radius * 1.1; // Adjust the horizontal position
+            return 'translate(' + pos + ')';
+        })
+        .attr('dy', '0.35em') // Adjust the vertical position of the label
+            .attr('text-anchor', 'start') // Align text to the left of the position
+            .text(function (d, i) {
+                return customLabels[i];
+        });
 }
 let keyframeIndex = 0;
 
@@ -227,4 +243,3 @@ async function initialise() {
 }
 
 initialise();
-
