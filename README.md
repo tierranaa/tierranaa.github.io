@@ -1,5 +1,5 @@
 
-**Workplace Bias: Hair Discrimination/Racial Micro-aggressions**
+Workplace Bias: Hair Discrimination/Racial Micro-aggressions
 README.md
 
 This project includes HTML, CSS, and JavaScript files to create an interactive scrollytelling visualization. The visualization combines a pie chart and a poem to convey a narrative about hair discrimination. Users can navigate through keyframes to reveal different aspects of the story.
